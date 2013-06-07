@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>BEKK Alias</title>
+        <link rel="stylesheet" href="css/jbclock.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="css/alias.css" type="text/css" media="all" />
+        <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+        <script type="text/javascript" src="js/simple.js"></script>
+        <script type="text/javascript" src="js/jbclock.js"></script>
+        <script type="text/javascript" src="js/ordliste.js"></script>
+        <script type="text/javascript" src="js/alias.js"></script>
+        
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $(document).keydown(function(event) {
+                    switch(event.keyCode) {
+                        case 13: // enter
+                        case 32: // space
+                        case 39: // right arrow
+                        case 38: // up
+                            Simple.Events.trigger("korrekt");
+                            break;
+                        case 82: // R
+                        case 114: // r
+                            Simple.Events.trigger("reset");
+                            break;
+                        case 37: // left
+                        case 40: // down
+                            Simple.Events.trigger("feil");
+                            break;
+                    }
+                });
+
+                new Alias.Nedtelling({el: $(".clock")});
+                new Alias.Poeng({el: $(".poeng")});
+            });
+        </script>
+    </head>
+
+    <body>
+
+        <div class="wrapper">
+            <h3 class="poeng-teller">Poeng: <span class="poeng">0</span></h3>
+            <div class="clock">
+                <canvas id="canvas_seconds"> </canvas>
+                <p class="val">Velkommen til BEKK Alias</p>
+            </div>
+
+        </div>
+    </body>
+</html>
