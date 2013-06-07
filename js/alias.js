@@ -31,7 +31,7 @@
         },
 
         nedtelling: function(sekunder) {
-            sekunder = sekunder || 6;
+            sekunder = sekunder || 60;
 
             var time = function() {
                     return Math.round(new Date().getTime() / 1000);
