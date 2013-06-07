@@ -1,16 +1,17 @@
 (function (Alias) {
     Alias.Nedtelling = Simple.View.extend({
         initialize: function(options) {
-            this.setupCanvas();
 
             Simple.Events.on("reset", this.reset, this);
             Simple.Events.on("korrekt", this.korrekt, this);
             Simple.Events.on("feil", this.feil, this);
+
         },
 
         reset: function(event) {
+            if (this.counter) this.counter.stop();
+            
             this.nedtelling();
-
 
             this.nyttOrd();
         },
@@ -30,21 +31,26 @@
             this.$(".val").html(Alias.Ordliste[Math.floor(Math.random()*Alias.Ordliste.length)]);
         },
 
-        nedtelling: function(sekunder) {
-            sekunder = sekunder || 60;
+        nedtelling: function() {
+            this.el.html("<canvas id=\"canvas_seconds\"> </canvas><p class=\"val\">Velkommen til BEKK Alias</p>");
+
+            this.setupCanvas();
+
 
             var time = function() {
                     return Math.round(new Date().getTime() / 1000);
                 }
 
-            JBCountDown({
+            this.counter = new Alias.JBCountDown ({
                 secondsColor : "#fff",
                 secondsGlow  : "none",
                 
                 startDate   : time(),
-                endDate     : time()+sekunder,
+                endDate     : time()+60,
                 now         : time()
             });
+
+            this.counter.start();
         },
 
         setupCanvas: function() {
@@ -65,12 +71,12 @@
 
             var val = this.$(".val");
 
-            var fontSize =  min_value / 20;
+            var fontSize =  min_value / 10;
 
             val.css({
                 "font-size": fontSize,
                 "width": min_value * (2/3),
-                "bottom": min_value / 2 + fontSize / 2
+                "bottom": min_value / 2 + fontSize
                 });
 
         }
